@@ -1,0 +1,33 @@
+.DashBoard{
+    border : 1px solid rgb(160, 157, 157);
+    position : absolute;
+    width: 140px;
+    right: 10%;
+    width: 15%;
+    height: 60%;
+    top: 10%;
+}
+
+.Road{
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.Park{
+    color: green;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.Sale{
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.Land{
+    color: gray;
+    font-size: 16px;
+    font-weight: bold;
+}
