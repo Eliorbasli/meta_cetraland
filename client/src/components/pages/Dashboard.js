@@ -34,15 +34,15 @@ const Dashboard = () => {
     <div className='DashBoard'>
 
     <h1>Hello {name || 'Guest'}</h1>
-    <h1>{money}</h1>
+    {/* <h1>{money}</h1> */}
 
 
     <div className='Road'>Road</div>
     <div className='Park'>Park</div>
-    <div className='Land'>Empty Land</div>
+    <div className='Land'>Land not for sale</div>
     <div className='Sale'>Land for Sale</div>
+    <div className='MyLand'>My Lands</div>
  
-    
     </div>
     </>
   )

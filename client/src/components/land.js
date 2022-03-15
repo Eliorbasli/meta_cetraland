@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 
 const Land = (land) => {
   const [modal, setModal] = useState(false);
+  const [owner, setOwner] = useState("");
   const [check, setCheck] = useState(true);
   const saleStatus = land.land.isForSale;
   const [grid, setGrid] = useState([]);
@@ -26,7 +27,6 @@ const Land = (land) => {
       }),
     });
 
-    console.log(response);
     window.location.reload();
   };
 
@@ -39,9 +39,10 @@ const Land = (land) => {
       body: JSON.stringify({
         _id: land.land.ownerId,
       }),
-    }).then((response) => {
-      console.log(response.JSON.stringify());
     });
+    const data = await response.json();
+
+    setOwner(data);
   };
 
   const toggleModal = (e) => {
@@ -50,6 +51,10 @@ const Land = (land) => {
     setPoint(e.target.id);
     //console.log(e.target.id);
   };
+
+  useEffect(() => {
+    modal && ownerName();
+  }, [modal]);
 
   const buyLand = async () => {
     const response = await fetch("http://localhost:8080/land/buy", {
@@ -60,12 +65,18 @@ const Land = (land) => {
       body: JSON.stringify({
         buyerId: localStorage.getItem("userId"),
         landId: land.land._id,
-
       }),
     });
-
     console.log(response);
-    window.location.reload();
+    if (response.status === 500) alert("Guest cannot buy nothing!!");
+    else window.location.reload();
+  };
+
+  const paintMe = () => {
+    if (land.land.ownerId === localStorage.getItem("userId")) {
+      return "ownerColor";
+    } else if (saleStatus) return land.land.isForSale;
+    else return land.land.type;
   };
 
   if (typeof land !== "undefined") {
@@ -74,16 +85,7 @@ const Land = (land) => {
     }
     return (
       <>
-        {saleStatus ? (
-          <div
-            className={`land ${land.land.isForSale}`}
-            onClick={toggleModal}
-          />
-        ) : (
-          // <div className="sale" onClick={toggleModal}   />
-          <div className={`land ${land.land.type}`} onClick={toggleModal} />
-        )}
-
+        <div className={`land ${paintMe()}`} onClick={toggleModal} />
         {modal && (
           <div className="modal">
             <div onClick={toggleModal} className="overlay"></div>
@@ -116,8 +118,8 @@ const Land = (land) => {
               <label>Owner:</label>
               <input
                 type="text"
-                defaultValue={land.land.ownerId}
-                //defaultValue={ownerName}
+                // defaultValue={land.land.ownerId}
+                defaultValue={owner}
                 disabled={true}
               />
               <br />
@@ -126,17 +128,21 @@ const Land = (land) => {
                 style={{
                   width: "120px",
                 }}
-                value={updateLand.game}
+                defaultValue={updateLand.game}
                 disabled={localStorage.getItem("userId") !== land.land.ownerId}
                 onChange={(e) =>
                   setUpdateLand({ ...updateLand, game: e.target.value })
                 }
               >
-                {["", "baby wants milk", "dancing man", "snake"].map(
-                  (nameGame) => (
-                    <option value={nameGame}>{nameGame}</option>
-                  )
-                )}
+                {[
+                  "",
+                  "baby wants milk",
+                  "dancing man",
+                  "snake",
+                  "ants colony",
+                ].map((nameGame) => (
+                  <option value={nameGame}>{nameGame}</option>
+                ))}
               </select>
               <br />
               <div style={{ float: "left", display: "flex" }}>

@@ -2,25 +2,24 @@ import React, {useState} from 'react'
 //import { useAuth0 } from '@auth0/auth0-react';
 
 const LogoutButton = () => {
-
-    //const {logout} = useAuth0();
-    //const {logout} = true
-    const cleanStorage = (e) => {
-        localStorage.removeItem('token');
-      }
+//const {logout} = useAuth0();
+  //const {logout} = true
+  const cleanStorage = (e) => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+  };
 
   return (
-    <button className='btn'
-    onClick={() =>
-    cleanStorage({
-        returnTo: window.location.href = '/',
-        //returnTo: window.location.origin,
-        
-    })
-    }
+    <button
+      className="btn"
+      onClick={() =>
+        cleanStorage({
+          returnTo: (window.location.href = "/"),
+          //returnTo: window.location.origin,
+        })
+      }
     >
-    Logout
-
+      Logout
     </button>
     
     );

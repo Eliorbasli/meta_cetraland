@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import RowOfLand from "./rowOfLand";
 import Dashboard from "./pages/Dashboard";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+//import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 const Map = () => {
   const [map, setMap] = useState([]);
   const getMap = async () => {
@@ -23,15 +23,16 @@ const Map = () => {
   }, []);
   return (
     <>
- <TransformWrapper>
-        <TransformComponent>
+ {/* <TransformWrapper>
+        <TransformComponent> */}
+        
     <div className="map">
       {map.map((row, index) => {
         return <RowOfLand key={index} row={row} />;
       })}
     </div>
-    </TransformComponent>
-      </TransformWrapper>
+    {/* </TransformComponent>
+      </TransformWrapper> */}
       
       <div className="board">
         <Dashboard />

@@ -10,7 +10,8 @@ import {Link} from 'react-router-dom';
 function HeroSectioin() {
 
   const cleanStorage = (e) => {
-    //localStorage.removeItem('token');
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId')
   }
 
   return (
