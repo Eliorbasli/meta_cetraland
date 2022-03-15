@@ -14,15 +14,16 @@ router.get("/", async (req, res) => {
 });
 
 //GETTING ONE USER - get ID_USER return user
-router.get("/getUser", async (req, res) => {
-  console.log("getUser");
+router.post("/getUser", async (req, res) => {
   const { _id } = req.body;
+  if (_id === "0") {
+    return res.json("SYSTEM");
+  }
   const loggedUser = await User.findOne({
     $and: [{ _id }],
   });
   if (loggedUser) {
-    console.log(loggedUser.userName);
-    return res.json(loggedUser);
+    return res.json(loggedUser.userName);
   } else {
     return res.json({ status: "error", user: false });
   }

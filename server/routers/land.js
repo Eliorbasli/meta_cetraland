@@ -26,10 +26,8 @@ router.get("/map", async (req, res) => {
 });
 
 router.post("/buy", async (req, res) => {
-  
   const { buyerId, landId } = req.body;
-  
-  console.log("check")
+  if (buyerId === null) return res.status(500).json({ message: "failed" });
   console.log(buyerId, landId);
   const buyer = await User.findById(ObjectID(buyerId));
   console.log(buyer);
@@ -66,6 +64,7 @@ router.post("/setLand", async (req, res) => {
 
     res.json("success");
   } else res.json("This type of property cannot be changed!");
+  console.log(res.json)
 });
 
 module.exports = router;
